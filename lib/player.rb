@@ -11,22 +11,30 @@ class Player
       puts "Enter your secret code ('1234'):"
       input = gets.chomp
 
-      if valid_code?(input)
+      if valid_input?(input)
         @code = input.chars.map(&:to_i)
-        return @code
       end
       
       puts "Invalid input. Please enter a 4-digit code with digits between 1 and 6."
     end
   end
 
-  def valid_code?(input)
+  def valid_input?(input)
     input.length == 4 && input.match?(/\A\d{4}\z/)
   end
 
   def make_guess
     # Prompt the player to make a guess and return it
-    puts "Enter your guess:"
-    gets.chomp.split('')
+    loop do
+      puts "Enter your guess ('1234'):"
+      input = gets.chomp
+
+      if valid_input?(input)
+        guess = input.chars.map(&:to_i)
+        return guess
+      end
+      
+      puts "Invalid input. Please enter a 4-digit code with digits between 1 and 6."
+    end
   end
 end
