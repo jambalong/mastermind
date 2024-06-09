@@ -26,8 +26,4 @@ class Computer
 
     [correct_positions, correct_digits]
   end
-
-  def valid_code?(code)
-    code.all? { |digit| (1..6).include?(digit) }
-  end
 end
