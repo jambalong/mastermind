@@ -26,9 +26,10 @@ class Game
       puts "Correct Positions: #{feedback[0]} | Correct Digits: #{feedback[1]}"
       turns_left -= 1
 
-      break if turns_left == 0
+      break if code_broken?(guess) || turns_left == 0
     end
 
+    puts "Congratulations! The code was broken."
   end
 
   private
@@ -54,5 +55,9 @@ class Game
     end
 
     [correct_positions, correct_digits]
+  end
+
+  def code_broken?(guess)
+    @secret_code == guess
   end
 end
