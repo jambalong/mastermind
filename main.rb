@@ -22,7 +22,7 @@ def view_instructions
 end
 
 system 'clear'
-puts "Welcome to Masterind!"
+puts 'Welcome to Masterind!'
 
 view_instructions
 

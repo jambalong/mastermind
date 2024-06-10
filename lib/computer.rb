@@ -1,3 +1,4 @@
+# Computer class to handle secret code generation and provide feedback
 class Computer
   attr_accessor :role
 
@@ -8,16 +9,14 @@ class Computer
   def generate_code
     number = rand(1000..9999) # Generate a random 4-digit number
     number_str = number.to_s
-  
+
     # Replace each digit with a random digit between 1 and 6
-    number_str.each_char.with_index do |digit, index|
+    number_str.each_char.with_index do |_digit, index|
       new_digit = rand(1..6).to_s
       number_str[index] = new_digit
     end
-  
-    secret_code = number_str.to_i
-  
-    return secret_code
+
+    number_str.to_i
   end
 
   def provide_feedback(guess, secret_code)

@@ -1,3 +1,4 @@
+# Contains the Mastermind Solver algorithm
 class Solver
   attr_reader :possible_solutions, :unused_codes, :max_guesses, :secret_code
 
@@ -51,12 +52,9 @@ class Solver
     end
 
     # Edge case: solver can't find a best next guess (scores.empty?), return random Integer
-    if scores.nil? || scores.empty?
-      return random_guess
-    end
+    return random_guess if scores.nil? || scores.empty?
 
-    best_guess = scores.max_by { |_guess, score| score }.first
-    best_guess
+    scores.max_by { |_guess, score| score }.first
   end
 
   def calculate_score(guess)
@@ -135,7 +133,7 @@ class Solver
   end
 
   def random_guess
-    number = ""
+    number = ''
     4.times do
       number += rand(1..6).to_s
     end

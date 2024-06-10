@@ -2,6 +2,7 @@ require_relative 'player'
 require_relative 'computer'
 require_relative 'solver'
 
+# Contains the main game logic
 class Game
   attr_reader :player, :computer, :secret_code, :max_guesses
 
@@ -38,12 +39,10 @@ class Game
   # Generate possible solutions containing 4 digit Integer with digits between 1 and 6
   def generate_possible_solutions
     possible_solutions = []
-    
+
     (1111..6666).each do |num|
       digits = num.to_s.chars.map(&:to_i)
-      if digits.all? { |digit| digit.between?(1, 6) }
-        possible_solutions << num
-      end
+      possible_solutions << num if digits.all? { |digit| digit.between?(1, 6) }
     end
 
     possible_solutions
@@ -58,7 +57,7 @@ class Game
       puts "Correct Positions: #{feedback[0]} | Correct Digits: #{feedback[1]}"
       @max_guesses -= 1
 
-      break if code_broken?(guess) || @max_guesses == 0
+      break if code_broken?(guess) || @max_guesses.zero?
     end
 
     if max_guesses.zero?
@@ -68,7 +67,6 @@ class Game
     end
   end
 
-  
   def code_breaker?
     player.role == :code_breaker
   end
@@ -87,7 +85,7 @@ class Game
   end
 
   def valid_role?(input)
-    input == "code_breaker" || input == "code_maker"
+    %w[code_breaker code_maker].include?(input)
   end
 
   def determine_secret_code
@@ -97,7 +95,7 @@ class Game
       computer.generate_code
     end
   end
-  
+
   def get_computer_role
     player.role == :code_maker ? :code_breaker : :code_maker
   end

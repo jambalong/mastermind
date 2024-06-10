@@ -1,6 +1,7 @@
+# Player class for handling secret code input and guess inputs
 class Player
   attr_accessor :role
-  
+
   def initialize(role)
     @role = role
   end
@@ -11,17 +12,16 @@ class Player
       input = gets.chomp
 
       # Check if input is 4 digits and contains digits between 1 and 6 only
-      if input.match?(/^\d{4}$/) && input.chars.all? { |digit| digit.to_i.between?(1, 6) }
-        return input.to_i
-      else
-        puts "Invalid input. Please enter a 4-digit code with digits between 1 and 6 only."
-      end
+      return input.to_i if input.match?(/^\d{4}$/) && input.chars.all? { |digit| digit.to_i.between?(1, 6) }
+
+      puts 'Invalid input. Please enter a 4-digit code with digits between 1 and 6 only.'
     end
   end
 
   def valid_input?(input)
     return false unless input.is_a?(Integer)
     return false unless input.digits.count == 4
+
     true
   end
 
@@ -36,7 +36,7 @@ class Player
         puts "\nYou guessed: #{guess}"
         return guess
       end
-      
+
       puts "\nInvalid input. Please enter a 4-digit code with digits between 1 and 6."
     end
   end
