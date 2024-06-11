@@ -41,7 +41,7 @@ class Game
     possible_solutions = []
 
     (1111..6666).each do |num|
-      digits = num.to_s.chars.map(&:to_i)
+      digits = num.digits.reverse
       possible_solutions << num if digits.all? { |digit| digit.between?(1, 6) }
     end
 
