@@ -55,6 +55,7 @@ class Game
       puts "\nWould you like to be the [code_breaker] or the [code_maker]?"
       input = gets.chomp.downcase
       return input.to_sym if %w[code_breaker code_maker].include?(input)
+
       puts "\nInvalid input. Please enter 'code_breaker' or 'code_maker'."
     end
   end

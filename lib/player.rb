@@ -24,7 +24,7 @@ class Player
         puts "\nYou guessed: #{input}"
         return input
       end
-  
+
       puts "\nInvalid input. Please enter a 4-digit code with digits between 1 and 6."
     end
   end

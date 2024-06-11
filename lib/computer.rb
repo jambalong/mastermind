@@ -13,7 +13,7 @@ class Computer
   def provide_feedback(code, guess)
     correct_positions = guess.digits.each_with_index.count { |digit, index| digit == code.digits[index] }
     correct_digits = [guess.digits.uniq.count { |digit| code.digits.include?(digit) } - correct_positions, 0].max
-  
+
     [correct_positions, correct_digits]
   end
 end

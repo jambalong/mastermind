@@ -52,7 +52,7 @@ class Solver
   def compute_feedback(code, guess)
     correct_positions = guess.digits.each_with_index.count { |digit, index| digit == code.digits[index] }
     correct_digits = [guess.digits.uniq.count { |digit| code.digits.include?(digit) } - correct_positions, 0].max
-  
+
     [correct_positions, correct_digits]
   end
 
@@ -60,7 +60,7 @@ class Solver
     puts "\nComputer Guess: #{guess}"
     puts "Correct Positions: #{feedback[0]} | Correct Digits: #{feedback[1]}"
   end
-  
+
   def display_game_result(feedback)
     if code_broken?(feedback)
       puts "\nCongratulations! Code broken."
