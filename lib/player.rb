@@ -10,34 +10,32 @@ class Player
     loop do
       puts "\nEnter your secret code (4 digits between 1 and 6):"
       input = gets.chomp
-
-      # Check if input is 4 digits and contains digits between 1 and 6 only
-      return input.to_i if input.match?(/^\d{4}$/) && input.chars.all? { |digit| digit.to_i.between?(1, 6) }
+      return input.to_i if valid_code?(input)
 
       puts 'Invalid input. Please enter a 4-digit code with digits between 1 and 6 only.'
     end
   end
 
-  def valid_input?(input)
-    return false unless input.is_a?(Integer)
-    return false unless input.digits.count == 4
-
-    true
-  end
-
   def make_guess
-    # Prompt the player to make a valid guess and return it
     loop do
       puts "\nEnter your guess ('1234'):"
       input = gets.chomp.to_i
-
-      if valid_input?(input)
-        guess = input
-        puts "\nYou guessed: #{guess}"
-        return guess
+      if valid_guess?(input)
+        puts "\nYou guessed: #{input}"
+        return input
       end
-
+  
       puts "\nInvalid input. Please enter a 4-digit code with digits between 1 and 6."
     end
+  end
+
+  private
+
+  def valid_code?(input)
+    input.match?(/^\d{4}$/) && input.chars.all? { |digit| digit.to_i.between?(1, 6) }
+  end
+
+  def valid_guess?(input)
+    input.is_a?(Integer) && input.digits.count == 4 && input.digits.all? { |digit| digit.between?(1, 6) }
   end
 end

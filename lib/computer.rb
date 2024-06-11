@@ -7,34 +7,13 @@ class Computer
   end
 
   def generate_code
-    number = rand(1000..9999) # Generate a random 4-digit number
-    number_str = number.to_s
-
-    # Replace each digit with a random digit between 1 and 6
-    number_str.each_char.with_index do |_digit, index|
-      new_digit = rand(1..6).to_s
-      number_str[index] = new_digit
-    end
-
-    number_str.to_i
+    4.times.map { rand(1..6) }.join.to_i
   end
 
-  def provide_feedback(guess, secret_code)
-    correct_positions = 0
-    correct_digits = 0
-
-    guess_digits = guess.digits.reverse
-    secret_code_digits = secret_code.digits.reverse
-
-    # Compare each digit of the guess with the corresponding digit of the secret code
-    guess_digits.each_with_index do |digit, index|
-      if digit == secret_code_digits[index]
-        correct_positions += 1 # Check if the digit is in the correct position
-      elsif secret_code_digits.include?(digit)
-        correct_digits += 1 # Check if the digit is in the secret code but in the wrong position
-      end
-    end
-
+  def provide_feedback(code, guess)
+    correct_positions = guess.digits.each_with_index.count { |digit, index| digit == code.digits[index] }
+    correct_digits = [guess.digits.uniq.count { |digit| code.digits.include?(digit) } - correct_positions, 0].max
+  
     [correct_positions, correct_digits]
   end
 end

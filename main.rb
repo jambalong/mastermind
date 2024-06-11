@@ -6,13 +6,12 @@ def view_instructions
   puts "\nWould you like to view the instructions? (y/n)"
 
   loop do
-    input = gets.chomp.downcase
-    if input == 'y'
+    case gets.chomp.downcase
+    when 'y'
       system 'clear'
-      Instruction.display # Display the game instructions
-
+      Instruction.display
       break
-    elsif input == 'n'
+    when 'n'
       puts "\nNo problem. Enjoy the game!"
       break
     else
@@ -26,5 +25,4 @@ puts 'Welcome to Masterind!'
 
 view_instructions
 
-game = Game.new
-game.play
+Game.new.play
