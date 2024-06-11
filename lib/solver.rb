@@ -1,10 +1,9 @@
 # Contains the Mastermind Solver algorithm
 class Solver
-  attr_reader :possible_solutions, :unused_codes, :max_guesses, :secret_code
+  attr_reader :possible_solutions, :max_guesses, :secret_code
 
   def initialize(possible_solutions, max_guesses, secret_code)
     @possible_solutions = possible_solutions
-    @unused_codes = possible_solutions.dup # Create a copy of possible solutions for tracking unused codes to be used later for optimization
     @max_guesses = max_guesses
     @secret_code = secret_code
   end
@@ -19,17 +18,15 @@ class Solver
       guess = guess_count.zero? ? 1122 : generate_guess
       feedback = compute_feedback(secret_code, guess)
 
-      puts "\nComputer Guess: #{guess}"
-      puts "Correct Positions: #{feedback[0]} | Correct Digits: #{feedback[1]}"
+      display_guess_feedback(guess, feedback)
 
       update_possible_solutions(guess, feedback)
-      update_unused_codes(guess, feedback)
       guess_count += 1
 
       break if code_broken?(feedback) || guess_count >= max_guesses
     end
 
-    puts code_broken?(feedback) ? "\nCongratulations! Code broken." : "\nMaximum number of guesses reached. Code not broken."
+    display_game_result(feedback)
   end
 
   private
@@ -40,17 +37,12 @@ class Solver
   end
 
   def calculate_score(guess)
-    possible_outcomes = unused_codes.group_by { |code| compute_feedback(code, guess) }
+    possible_outcomes = possible_solutions.group_by { |code| compute_feedback(code, guess) }
     possible_outcomes.values.min_by { |codes| codes.size }.size
   end
 
   def update_possible_solutions(guess, feedback)
     possible_solutions.select! { |solution| compute_feedback(solution, guess) == feedback }
-  end
-
-  # I'm still debating how to use unused_codes to optimize algorithm
-  def update_unused_codes(guess, feedback)
-    unused_codes.reject! { |code| compute_feedback(code, guess) != feedback }
   end
 
   def code_broken?(feedback)
@@ -62,6 +54,19 @@ class Solver
     correct_digits = [guess.digits.uniq.count { |digit| code.digits.include?(digit) } - correct_positions, 0].max
   
     [correct_positions, correct_digits]
+  end
+
+  def display_guess_feedback(guess, feedback)
+    puts "\nComputer Guess: #{guess}"
+    puts "Correct Positions: #{feedback[0]} | Correct Digits: #{feedback[1]}"
+  end
+  
+  def display_game_result(feedback)
+    if code_broken?(feedback)
+      puts "\nCongratulations! Code broken."
+    else
+      puts "\nMaximum number of guesses reached. Code not broken."
+    end
   end
 
   def random_guess
