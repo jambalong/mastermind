@@ -17,7 +17,7 @@ class Game
   def play
     system 'clear'
     puts "\nTry and guess my secret code!"
-    p secret_code
+    
     # Start the game loop based on the player's role
     code_breaker? ? play_code_breaker : solve_secret_code
   end
