@@ -5,7 +5,7 @@ This project is part of The Odin Project: [Mastermind](https://www.theodinprojec
 
 ## Live Demo
 You can play the Mastermind game online by accessing the following link:
-[Play Mastermind on Replit](https://replit.com/@yourusername/mastermind)
+[Play Mastermind on Replit](https://replit.com/@jambalong/mastermind)
 
 ## Features
 - **Two Roles:** Players can either be the code creator or the guesser.
